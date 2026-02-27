@@ -1,0 +1,9 @@
+[submodule "notes-site"]
+	path = notes-site
+	url = git@github.com:antonwallstedt/notes-site.git
+[submodule "notes-staging"]
+	path = notes-staging
+	url = git@github.com:antonwallstedt/notes-staging.git
+[submodule "notes-vault"]
+	path = notes-vault
+	url = git@github.com:antonwallstedt/notes-vault.git
