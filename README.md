@@ -301,7 +301,3 @@ feat: add new feature       → minor bump
 fix: fix a bug              → patch bump
 feat!: breaking change      → major bump
 ```
-
-## License
-
-MIT
