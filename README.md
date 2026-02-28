@@ -1,6 +1,10 @@
 # PKM
 
-A private Zettelkasten + PARA knowledge base that publishes selected notes to a public static site via an automated CI/CD pipeline.
+A privacy-first knowledge base that publishes select notes to a public static site via an automated CI/CD pipeline.
+
+Notes are plain Markdown files, preferably maintained through Obsidian. The raw notes are kept in a private vault, which opens a PR in a staging repository for manual review. Only select notes will be published.
+
+Merged changes in staging repository are built to a static site using [Quartz](https://github.com/jackyzha0/quartz), mine is accessible at https://notes.antonwallstedt.xyz.
 
 ## Architecture
 
