@@ -63,7 +63,7 @@ flowchart TD
     Q --> R[Site live]
 ```
 
-## Vault Structure
+## Vault Example Structure
 
 ```
 notes-vault/
@@ -72,9 +72,9 @@ notes-vault/
 ├── 2_areas/         ← ongoing responsibilities
 ├── 3_resources/     ← reference material
 ├── 4_archive/       ← completed or inactive
-├── 5_slipbox/       ← Zettelkasten permanent notes and MOCs
-├── _attachments/    ← images and files
-└── _templates/      ← Obsidian templates
+├── 5_slipbox/       ← Zettelkasten permanent notes and general MOCs
+├── attachments/    ← images and files
+└── templates/      ← Obsidian templates
 ```
 
 ## Prerequisites
@@ -176,7 +176,7 @@ Should show nothing to publish on a fresh vault.
 
 `notes-publish` is a Rust binary that:
 
-1. Walks the vault, skipping `_attachments/`, `_templates/`, and `.obsidian/`
+1. Walks the vault, skipping `attachments/`, `templates/`, and `.obsidian/`
 2. For each `.md` file — hashes contents and scans frontmatter for `public` tag in a single pass
 3. Diffs against `.checksums.json` manifest in `notes-staging`
 4. Produces a plan across five states:
