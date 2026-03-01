@@ -51,6 +51,19 @@ Manifest bumps to **version 2**. `load()` migrates v1 manifests by setting `stag
 
 `create_dir_all` is no longer needed for the destination (always a root-level file).
 
+### main — `strip_public_tag`
+
+When copying a note to staging (both local copy in `apply_plan` and GitHub upload in `build_staged_files`), the `public` tag is stripped from the frontmatter. The note on disk in staging should not expose the internal tagging system.
+
+A `strip_public_tag(content: &str) -> String` function is added (in `main.rs` or a small `transform.rs` module). It:
+1. Parses the YAML frontmatter using `serde_yaml`.
+2. Removes `public` from the `tags` field (handles single-string, inline-list, and block-list formats; strips leading `#` before comparing).
+3. Removes the `tags` field entirely if it becomes empty.
+4. Re-serializes the modified frontmatter and reconstructs the full note content.
+5. Returns the content unchanged if there is no frontmatter or parsing fails.
+
+Applied to `.md` files only — attachments are passed through as-is.
+
 ### github — `StagedFile`
 
 `StagedFile.content` changes from `Option<String>` to `Option<FileContent>`:
