@@ -34,19 +34,26 @@ deploy: $(BIN) ## Filter, copy, commit, and open PR in notes-staging
 		--staging $(STAGING) \
 		--owner $(shell gh api user --jq '.login') \
 		--repo $(shell basename $(STAGING)) \
-		--token $(shell gh auth token) || [ $$? -eq 2 ]
+		--token $(shell gh auth token) \
+		--yes || [ $$? -eq 2 ]
 
 # ─────────────────────────────────────────
 # Local development
 # ─────────────────────────────────────────
 
+.PHONY: sync
+sync: $(BIN) ## Sync public vault notes to notes-staging locally (no GitHub PR)
+	@$(BIN) \
+		--vault $(VAULT) \
+		--staging $(STAGING) || [ $$? -eq 2 ]
+
 .PHONY: serve
-serve: ## Serve Quartz site locally with live reload
-	cd $(SITE) && npx quartz build --serve
+serve: ## Serve Quartz site from notes-staging with live reload
+	cd $(SITE) && npx quartz build --serve -d $(STAGING)
 
 .PHONY: build
-build: ## Build Quartz site locally
-	cd $(SITE) && npx quartz build
+build: ## Build Quartz site from notes-staging (production)
+	cd $(SITE) && npx quartz build -d $(STAGING)
 
 # ─────────────────────────────────────────
 # Sync
@@ -56,7 +63,7 @@ build: ## Build Quartz site locally
 pull: ## Pull latest on all submodules
 	git -C $(VAULT) pull origin main
 	git -C $(STAGING) pull origin main
-	git -C $(SITE) pull origin main
+	git -C $(SITE) pull origin v4
 
 # ─────────────────────────────────────────
 
